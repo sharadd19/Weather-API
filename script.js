@@ -3,6 +3,7 @@ const searchButton = document.querySelector('.search-button');
 
 async function getWeatherData(location){
     const url = api + location;
+
     try {
         const response = await fetch(url, {mode:'cors'});
         const data = await response.json();
@@ -16,15 +17,18 @@ async function getWeatherData(location){
 };
 
 searchButton.addEventListener('click', async (e) => {
+    const searchQuery = document.getElementById('search-query');
 
-    const searchQuery = document.getElementById('search-query').value;
-    let button = e.target;
-    let card = button.parentNode.nextSibling.remove();
+    if (searchQuery.value !== ""){
+        document.querySelector('.search-query').style.border='none';
+        e.target.parentNode.nextSibling.remove();
+        const weatherData = await getWeatherData(searchQuery.value);   
+        createWeatherCard(weatherData);
+    }
+    else{
+       document.querySelector('.search-query').style.borderColor='red'; 
 
-    // TODO: we need to prevent the same data showing twice if someone clicks again.
-    const weatherData = await getWeatherData(searchQuery);
-    
-    createWeatherCard(weatherData);
+    }
 });
 
 async function createWeatherCard(weatherData) {
