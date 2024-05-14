@@ -3,7 +3,7 @@ const searchButton = document.querySelector('.search-button');
 
 async function getWeatherData(location){
     const url = api + location;
-
+    
     try {
         const response = await fetch(url, {mode:'cors'});
         const data = await response.json();
@@ -11,22 +11,27 @@ async function getWeatherData(location){
         return data;
 
     } catch (error) {
-        alert(`Unable to load weather data for ${location}`);
-        console.log(`Unable to load weather data for ${location}`);
+        console.log("Code is not reaching here!")
+        location === "" ? alert("Please enter a city") : alert(`Unable to load weather data for ${location}`);
+        
     }
 };
 
 searchButton.addEventListener('click', async (e) => {
     const searchQuery = document.getElementById('search-query');
-
+   
     if (searchQuery.value !== ""){
         document.querySelector('.search-query').style.border='none';
         e.target.parentNode.nextSibling.remove();
         const weatherData = await getWeatherData(searchQuery.value);   
-        createWeatherCard(weatherData);
+        
+        if (weatherData !== null){
+            createWeatherCard(weatherData);
+        }
+        
     }
     else{
-       document.querySelector('.search-query').style.borderColor='red'; 
+        document.querySelector('.search-query').style.borderColor='red'; 
 
     }
 });
