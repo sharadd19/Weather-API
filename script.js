@@ -1,3 +1,4 @@
+document.title = "Weather App";
 const api = "https://api.weatherapi.com/v1/current.json?key=cae4913bb6744fab83755352240805&q="
 const searchButton = document.querySelector('.search-button');
 
