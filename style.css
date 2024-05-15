@@ -37,6 +37,7 @@ body {
     justify-content: flex-start; /* Align items to the top */
     height: 100vh;
     background-color: var(--secondary-color);
+    overflow: hidden;
   }
 
 .weather-card-container{
